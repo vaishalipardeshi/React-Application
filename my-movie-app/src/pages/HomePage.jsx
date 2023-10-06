@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <div>
       <h1>Welcome to the Pokemon App!</h1>
-      <Link to="/HomePage">Go to Home</Link>
+      <Link to="/HomePage">Go to Home</Link><br/>
     </div>
   );
 };

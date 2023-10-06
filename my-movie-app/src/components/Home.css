@@ -13,10 +13,6 @@
 }
 
 .search-input {
-  /* margin-bottom: 10px; */
-  /* padding: 5px; */
-  /* border: 1px solid #ccc; */
-  /* border-radius: 4px; */
   width: 100%;
   border: none;
   outline: none;
@@ -41,3 +37,20 @@
   margin-left: 5px;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  font-size: 16px;
+}
+
+.pagination span {
+  cursor: pointer;
+  color: #8b8888;
+  margin: 0 10px;
+}
+
+.pagination .active {
+  font-weight: bold;
+}
