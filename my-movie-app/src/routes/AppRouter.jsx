@@ -18,6 +18,7 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/HomePage" element={<Home />} />
+        <Route path="/" Component={<Home/>} />
         <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
       </Routes>
     </Router>
