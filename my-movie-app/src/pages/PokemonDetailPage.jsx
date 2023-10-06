@@ -12,8 +12,7 @@ from '../components/PokemonDetail';
 
 const PokemonDetailPage = () => {
 
-  const { id } = useParams(); //hook to fetch detailed info about pokemon with specific id
-  // hook to fetch data about pokemon & result stored in pokemonData
+  const { id } = useParams(); 
   const { data: pokemonData, isLoading, isError } = useGetAllPokemonDetailsQuery(id);
 
   if (isLoading) {
