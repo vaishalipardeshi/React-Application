@@ -15,16 +15,12 @@ import {
 } from './services/api';
 
 export const store = configureStore({
-  reducer: { //necessary for making api calls & make data available to components.
+  reducer: { 
     [pokemonApi.reducerPath]: pokemonApi.reducer,
-    cache: cacheReducer, // add cache reducer to store
+    cache: cacheReducer 
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: (getDefaultMiddleware) => //handle api request
   getDefaultMiddleware().concat(pokemonApi.middleware),
 });
 
-setupListeners(store.dispatch);
-
-//creating a redux store for store all app data.
-//manage large data
-//connect api slice reducers to redux store
+setupListeners(store.dispatch);// dispatch send actions to redux store.
