@@ -13,39 +13,37 @@ import {
 
 import './PokemonList.css';
 
-function PokemonList({ pokemonData, limit, searchQuery }) { //functional component
+function PokemonList({ pokemonData, limit, searchQuery }) {
 
-  const [pokemonDetails, setPokemonDetails] = useState([]); //store details of pokemon
+  const [pokemonDetails, setPokemonDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log('PokemonDataDataData', pokemonData);
+  console.log('PokemonData', pokemonData);
 
-  useEffect(() => { //callback fun for fetch details of each pokemon in pokemonData
+  useEffect(() => { 
     const fetchPokemonDetails = async () => {
       try {
       const details = [];
 
-      for (const pokemon of pokemonData) { //iterate loop
-        const response = await fetch(pokemon.url); //fetch request made to url
-        const data = await response.json(); //response converted to json & add to details array
+      for (const pokemon of pokemonData) {
+        const response = await fetch(pokemon.url);
+        const data = await response.json(); 
         details.push(data);
       }
-      // console.log(details, 'details')
-      setPokemonDetails(details); //details set to new state
-      setIsLoading(false); //mark loading as complete
+      console.log('fetchPokemonDetails', details);
+      setPokemonDetails(details); 
+      setIsLoading(false); 
     } catch (error) {
-      setError(error); //handle fetch error
-      setIsLoading(false); //mark laoding as complete with error.
+      setError(error); 
+      setIsLoading(false); 
       }
     };
     fetchPokemonDetails();
   }, [pokemonData]);
 
-  //filter method on pokemonDetails array
-  //filter method iterate thr each ele of an array and return new array contains only ele which meet cond.
   const filteredPokemon = pokemonDetails
     .filter((pokemon) => 
-      pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) //case -sensitive search
+      pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) 
     )
     .slice(0, limit);
 
@@ -66,26 +64,10 @@ function PokemonList({ pokemonData, limit, searchQuery }) { //functional compone
       {filteredPokemon.map((pokemon, index) => (
         <article key={index} className='pokemon-card'>
           <Link className='text-color' to={`/pokemon/${pokemon.id}`}>
-          <h2 className='pokemon-name'>{pokemon.name}</h2>
-          <img className='pokemon-image'
-            src={`../src/assets/Images/${pokemon.id}.png`}
-            alt={pokemon.name}/>
-          {/* <p className='base-experience'>Base Experience: {pokemon.base_experience}</p> */}
-          {/*access only [0] array index*/}
-          {/* <ul>
-            <li>{pokemon.game_indices[0].version.name}</li>
-          </ul> 
-          <ul>
-            {pokemon.abilities.map((ability, index) => (
-              <li key={index}>{ability.ability.name}</li>
-            ))}
-          </ul> */}
-          {/*access all version name from game_indixes array*/}
-          {/* <ul>
-            {pokemon.game_indices.map((game_index, index) => (
-              <li key={index}>{game_index.version.name}</li>
-            ))}
-          </ul> */}
+            <h2 className='pokemon-home-name'>{pokemon.name}</h2>
+            <img className='pokemon-home-image'
+              src={pokemon.sprites.front_shiny}
+              alt={pokemon.name}/>
           </Link>
         </article>
       ))}
@@ -100,7 +82,7 @@ PokemonList.propTypes = {
         url: PropTypes.string.isRequired,
       })
     ).isRequired,
-    limit: PropTypes.number,
+    limit: PropTypes.number.isRequired,
     searchQuery: PropTypes.string.isRequired
   };
 
