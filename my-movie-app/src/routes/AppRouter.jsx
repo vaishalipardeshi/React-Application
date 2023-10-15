@@ -10,7 +10,9 @@ import
   Home
 from '../components/Home';
 
-import PokemonDetailPage from '../pages/PokemonDetailPage';
+import
+  PokemonDetailPage
+from '../pages/PokemonDetailPage';
 
 const AppRouter = () => {
   return (

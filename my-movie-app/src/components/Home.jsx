@@ -1,22 +1,22 @@
-import 
-  Navbar
-from '../components/Navbar';
-
-import
-  PokemonList
-from '../components/PokemonList';
+import {
+  useState
+} from 'react';
 
 import {
   FaSearch, FaTimes
 } from 'react-icons/fa';
 
 import {
-  useState
-} from 'react';
-
-import {
   useGetAllPokemonQuery
 } from '../services/api';
+
+import
+  Navbar
+from '../components/Navbar';
+
+import
+  PokemonList
+from '../components/PokemonList';
 
 import '../components/Home.css';
 
@@ -30,11 +30,11 @@ const Home = () => {
   const itemsPerPage = 9;
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div className='loader text-center'>Loading...</div>
   }
 
   if(isError) {
-    return <div>Error occured: {isError.message}</div>
+    return <div className='text-center'>Error occured: {isError.message}</div>
   }
 
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -57,19 +57,25 @@ const Home = () => {
     <main>
       <Navbar currentPage={currentPage} totalPages={totalPages} />
       {renderSearchBar && (
-        <div className="search-bar">
-          <div className="search-input-container">
-            <FaSearch className="search-icon" />
+        <div className="search-bar p-4 rounded-md shadow-md">
+          <div className="search-input-container relative ml-4 mr-4 rounded">
+            <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700'>
+              <FaSearch className="h-5 w-5 search icon"/>
+            </span>
             <input
             type="text"
             placeholder="Type here to search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)} 
-            className="search-input"/>
-            <FaTimes
-              className="clear-icon"
-              onClick={() => setSearchQuery('')}
-            />
+            className="search-input pl-10 pr-16 py-2 rounded-md border border-grey-300 focus:ring focus:ring-lime-200 focus:outline-none w-full"/>
+            {searchQuery && (
+              <span className='absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer'>
+                <FaTimes
+                  className="h-5 w-5 text-gray-400 clear icon"
+                  onClick={() => setSearchQuery('')}
+                />
+              </span>
+            )}
           </div>
         </div>
       )}
@@ -78,31 +84,36 @@ const Home = () => {
         ) : (
         <>
           <PokemonList pokemonData={pokemonData.results.slice(startIndex, endIndex)} limit={9} searchQuery={searchQuery} />
-          <div className='pagination'>
-            {currentPage > 1 &&
-              <img src="../src/assets/Images/icons/arrow-left.svg" alt="left-arrow" /> 
-            }
-            {currentPage > 1 && (
-              <span onClick={() => handlePageChange(currentPage - 1)}>
-                previous 
-              </span>
-            )}
-            {Array.from({ length: totalPages }, (_, index) => (
-              <span 
-                key={index + 1}
-                onClick={() => handlePageChange (index + 1)}
-                className={currentPage === index + 1 ? 'active' : ''}>
-                {index + 1}
-              </span>
-            ))}
-            {currentPage < totalPages && (
-              <span onClick={() => handlePageChange(currentPage + 1)}>
-                Next 
-              </span>
-            )}
-            {currentPage < totalPages &&
-              <img src="../src/assets/Images/icons/arrow-right.svg" alt="right-arrow" />
-            }
+          <div className="p-4 mx-2 transform -translate-y-1/2 text-gray-700 rounded-md">
+            <div className='pagination flex justify-center items-center mt-20 text-base space-x-8 bg-lime-100 text-black p-2 rounded-md shadow-xl hover:shadow'>
+              {currentPage > 1 &&
+                <img src="../src/assets/Images/icons/arrow-left.svg" alt="left-arrow" className='w-4 h-4'/> 
+              }
+              {currentPage > 1 && (
+                <span onClick={() => handlePageChange(currentPage - 1)}
+                className='cursor-pointer'>
+                  previous 
+                </span>
+              )}
+              {/*destructuring assignment */}
+              {Array.from({ length: totalPages }, (_, index) => ( // create new array with length of totalPages.
+                <span 
+                  key={index + 1}
+                  onClick={() => handlePageChange (index + 1)}
+                  className={`cursor-pointer ${currentPage === index + 1 ? 'font-bold' : 'text-gray-500'}`}>
+                  {index + 1}
+                </span>
+              ))}
+              {currentPage < totalPages && (
+                <span onClick={() => handlePageChange(currentPage + 1)}
+                className='cursor-pointer'>
+                  Next 
+                </span>
+              )}
+              {currentPage < totalPages &&
+                <img src="../src/assets/Images/icons/arrow-right.svg" alt="right-arrow" className='w-4 h-4'/>
+              }
+            </div>
           </div>
         </>
       )}

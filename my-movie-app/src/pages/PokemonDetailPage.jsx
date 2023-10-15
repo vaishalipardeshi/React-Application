@@ -16,19 +16,19 @@ const PokemonDetailPage = () => {
   const { data: pokemonData, isLoading, isError } = useGetAllPokemonDetailsQuery(id);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='text-center'>Loading...</div>;
   }
 
   if (isError) {
-    return <div>Error fetching Pokemon detail: {isError.message}</div>;
+    return <div className="text-center">Error fetching Pokemon detail: {isError.message}</div>;
   }
 
   if (!pokemonData) {
-    return <div>Pokemon not found.</div>;
+    return <div className='text-center'>Pokemon not found.</div>;
   }
 
   return (
-    <div className='pokemon-detail-page'>
+    <div className='pokemon-detail-page max-h-screen'>
       <PokemonDetail pokemon={pokemonData} />
     </div>
   );
