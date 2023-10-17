@@ -28,7 +28,7 @@ export default cacheSlice.reducer;
 //fetch data and cache data ,id for identify data we want to fetch and cache
 export const fetchDataAndCache = (id) => async(dispatch, getState) =>{
   const state = getState(); //getState allows you to access current state of redux state
-  const { cache } = state; 
+  const { cache } = state;
 
   //check if the data is in the redux store or not
   if (!cache.pokemonDetails[id]) {
@@ -51,7 +51,7 @@ export const getDataFromCacheAndFilter = (filter) => (dispatch, getState) => {
 
   //loop the cache & filter based on key-value pair
   for (const key in pokemonDetails) {
-    const pokemon = pokemonDetails[key]; 
+    const pokemon = pokemonDetails[key];
     if(pokemon.someFilterCondCriteria === filter) { //here it matches the filtered criteria
       filteredData[key] = pokemon; //if matches then adds key-value pair to filteredData obj
     }
