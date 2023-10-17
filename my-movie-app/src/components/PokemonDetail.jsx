@@ -12,6 +12,8 @@ from '../assets/Images/background.jpg';
 
 import '../components/PokemonDetail.css';
 
+import Navbar from './Navbar';
+
 const PokemonDetail = ({ pokemon }) => {  
   const[showMore, setShowMore] = useState(false);
   const [selectedPicture, setSelectedPicture] = useState(null);
@@ -36,6 +38,7 @@ const PokemonDetail = ({ pokemon }) => {
 
   return (
     <>
+      <Navbar/>
       <h2 className="text-2xl italic uppercase font-bold p-4">Pokemon Details</h2>
       <main className='main flex text-xl text-black-300 p-6 bg-white rounded-lg' style={{ backgroundImage: `url(${backgroundImage})` }}>
         <section className="small-images w-1/5 flex flex-col items-center gap-10 mr-8">

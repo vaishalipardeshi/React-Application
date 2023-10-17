@@ -22,9 +22,8 @@ import '../components/Home.css';
 
 const Home = () => {
 
-  const [searchQuery, setSearchQuery] = useState('');
-
   const { data: pokemonData, isLoading, isError } = useGetAllPokemonQuery();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
@@ -66,13 +65,13 @@ const Home = () => {
             type="text"
             placeholder="Type here to search..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} 
+            onChange={(e) => setSearchQuery(e.target.value)} //capture new value & update searchQuery state with new value
             className="search-input pl-10 pr-16 py-2 rounded-md border border-grey-300 focus:ring focus:ring-lime-200 focus:outline-none w-full"/>
             {searchQuery && (
               <span className='absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer'>
                 <FaTimes
                   className="h-5 w-5 text-gray-400 clear icon"
-                  onClick={() => setSearchQuery('')}
+                  onClick={() => setSearchQuery('')} //clear search input field by pass empty string
                 />
               </span>
             )}
