@@ -14,7 +14,7 @@ const cacheSlice = createSlice({
   },
   reducers: { 
     //setCacheValue updating the cache in key value pair.//current state of slice & action obj displayed by your appln
-    setCacheValue: (state, action) => {
+    setCacheValue: (state, action) => { 
       const { key, data } = action.payload;
       state[key] = data;
     },
@@ -28,7 +28,7 @@ export default cacheSlice.reducer;
 //fetch data and cache data ,id for identify data we want to fetch and cache
 export const fetchDataAndCache = (id) => async(dispatch, getState) =>{
   const state = getState(); //getState allows you to access current state of redux state
-  const { cache } = state; 
+  const { cache } = state;
 
   //check if the data is in the redux store or not
   if (!cache.pokemonDetails[id]) {

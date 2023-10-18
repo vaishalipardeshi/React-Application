@@ -22,6 +22,7 @@ import '../components/Home.css';
 
 const Home = () => {
 
+  //fetch data about pokemon & result stored in pokemonData
   const { data: pokemonData, isLoading, isError } = useGetAllPokemonQuery();
   const [searchQuery, setSearchQuery] = useState('');
 
