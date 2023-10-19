@@ -7,5 +7,5 @@ export default defineConfig({
   // server: {
   //   port: 3000
   // }
-  base: '/React-Application',
+  base: 'localhost:3000/React-Application',
 });
