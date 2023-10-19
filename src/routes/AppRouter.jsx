@@ -18,7 +18,7 @@ const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/React-Application" element={<HomePage />} />
         <Route path="/HomePage" element={<Home />} />
         <Route path="/" Component={<Home/>} />
         <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
