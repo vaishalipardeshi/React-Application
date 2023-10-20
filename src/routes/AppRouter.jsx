@@ -1,5 +1,5 @@
 import {
-  BrowserRouter as Router, Routes, Route
+  BrowserRouter as Router, Routes, Route, Outlet
 } from 'react-router-dom';
 
 import
@@ -16,12 +16,15 @@ from '../pages/PokemonDetailPage';
 
 const AppRouter = () => {
   return (
-    <Router>
+    <Router basename="/React-Application">
       <Routes>
-        <Route path="/React-Application" element={<HomePage />} />
-        <Route path="/HomePage" element={<Home />} />
-        <Route path="/" Component={<Home/>} />
-        <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
+        <Route path="/" element={<Outlet />}>{/*used to handle child routes within main route */}
+          <Route index element={<HomePage />} />
+          <Route path="/React-Application" element={<HomePage />} />
+          <Route path="/HomePage" element={<Home />} />
+          {/* <Route path="/" Component={<Home/>} /> */}
+          <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
+        </Route>
       </Routes>
     </Router>
   );
