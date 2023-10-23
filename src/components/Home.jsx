@@ -20,6 +20,11 @@ from '../components/PokemonList';
 
 import '../components/Home.css';
 
+import leftArrow from '../assets/Images/icons/arrow-left.svg';
+
+import rightArrow from '../assets/Images/icons/arrow-right.svg';
+
+
 const Home = () => {
 
   //fetch data about pokemon & result stored in pokemonData
@@ -87,7 +92,7 @@ const Home = () => {
           <div className="p-4 mx-2 transform -translate-y-1/2 text-gray-700 rounded-md">
             <div className='pagination flex justify-center items-center mt-20 text-base space-x-8 bg-lime-100 text-black p-2 rounded-md shadow-xl hover:shadow'>
               {currentPage > 1 &&
-                <img src="../src/assets/Images/icons/arrow-left.svg" alt="left-arrow" className='w-4 h-4'/> 
+                <img src={leftArrow} alt="left-arrow" className='w-4 h-4'/> 
               }
               {currentPage > 1 && (
                 <span onClick={() => handlePageChange(currentPage - 1)}
@@ -111,7 +116,7 @@ const Home = () => {
                 </span>
               )}
               {currentPage < totalPages &&
-                <img src="../src/assets/Images/icons/arrow-right.svg" alt="right-arrow" className='w-4 h-4'/>
+                <img src={rightArrow} alt="right-arrow" className='w-4 h-4'/>
               }
             </div>
           </div>
