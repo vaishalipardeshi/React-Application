@@ -4,24 +4,37 @@ import {
 
 import { useGetAllPokemonDetailsQuery } from '../services/api';
 
+const initialState = {
+  // allPokemon: {},
+  // pokemonDetails: {},
+  favorites: [],
+};
+
 //slice function/part of store/based on slice req it will gives us the output.
 //for managing a cache in redux store
 const cacheSlice = createSlice({
   name: 'cache',
-  initialState: {
-    allPokemon: {},
-    pokemonDetails: {},
-  },
-  reducers: { 
-    //setCacheValue updating the cache in key value pair.//current state of slice & action obj displayed by your appln
-    setCacheValue: (state, action) => { 
+  initialState,
+  reducers: {
+    setCacheValue: (state, action) => {
       const { key, data } = action.payload;
       state[key] = data;
     },
+    //to add an item to an array in state
+    //action.payload is data being added to favorites array. (hold data in redux action obj)
+    addToFavorites: (state, action) => {
+      state.favorites.push(action.payload);//state.favorites is array in state & push(action.payload) is array used to add item to end of array
+    },   
+    // removeFromFavorites: (state, action) => {
+    //   // Filter out the Pokémon to remove by checking the ID
+    //   state.favorites = state.favorites.filter(
+    //     (pokemon) => pokemon.id !== action.payload.id
+    //   );
+    // },
   },
 });
 
-export const { setCacheValue } = cacheSlice.actions;
+export const { setCacheValue, addToFavorites, removeFromFavorites } = cacheSlice.actions;
 
 export default cacheSlice.reducer;
 

@@ -18,20 +18,9 @@ import
   cacheReducer
   from '../src/featuresReducers/pokemonSlice';
 
-  // export const store = configureStore({
-  //   reducer: { 
-  //     [pokemonApi.reducerPath]: pokemonApi.reducer,
-  //     cache: cacheReducer, //add cache to store
-  //   },
-  //   middleware: (getDefaultMiddleware) => //handle api request
-  //   getDefaultMiddleware().concat(pokemonApi.middleware),
-  // });
-
   //Add redux devtool extension.
   const composeEnhancers = composeWithDevTools({
-    name: 'MyReduxStore',
-    actionsBlacklist: ['SOME_ACTION_TYPE'],
-    // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+    name: 'MyReduxStore'
   });
 
   export const store = configureStore({
@@ -39,7 +28,7 @@ import
       [pokemonApi.reducerPath]: pokemonApi.reducer,
       cache: cacheReducer,
     },
-    middleware: (getDefaultMiddleware) => //handle api request
+    middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(pokemonApi.middleware),
     enhancer: [composeEnhancers],
   });

@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 import backArrow from '../assets/Images/icons/back-arrow.svg';
 
-
 const Navbar = ({ currentPage }) => {
   return (
     <nav className='navbar flex items-center justify-between p-4 bg-lime-100 shadow-md rounded shadow-xl hover:shadow'>
@@ -16,6 +15,7 @@ const Navbar = ({ currentPage }) => {
           <p className='navbar-back-name text-black'>Back</p> 
         </div>
       </Link>
+      <Link to='/favorites'>Favorites</Link> {/* Add this line for the Favorites Page */}
     </nav>
   );
 };

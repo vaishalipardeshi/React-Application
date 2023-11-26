@@ -14,6 +14,8 @@ import
   PokemonDetailPage
 from '../pages/PokemonDetailPage';
 
+import FavoritesPage from '../pages/FavoritesPage';
+
 const AppRouter = () => {
   return (
     <Router basename="/React-Application">
@@ -22,8 +24,8 @@ const AppRouter = () => {
           <Route index element={<HomePage />} />
           <Route path="/React-Application" element={<HomePage />} />
           <Route path="/HomePage" element={<Home />} />
-          {/* <Route path="/" Component={<Home/>} /> */}
           <Route path="/pokemon/:id" element={<PokemonDetailPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
         </Route>
       </Routes>
     </Router>

@@ -16,11 +16,16 @@ from 'fuse.js';
 
 import './PokemonList.css';
 
+import { useDispatch } from 'react-redux';//hook to access to the redux store's dispatch fun & dispatch actions
+import { addToFavorites } from '../featuresReducers/pokemonSlice';//actionCreator
+
 function PokemonList({ pokemonData, limit, searchQuery }) {
+
   const [pokemonDetails, setPokemonDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const dispatch = useDispatch();
+  
   //fetch details when pokemonData prop changes
   useEffect(() => {
     fetchPokemonDetails();
@@ -36,7 +41,7 @@ function PokemonList({ pokemonData, limit, searchQuery }) {
         details.push(data);
       }
 
-      console.log('Fetched Pokemon Details:', details); // Debug: Check if details are fetched correctly
+      console.log('Fetched Pokemon Details:', details);
 
       setPokemonDetails(details);
       setIsLoading(false);
@@ -46,27 +51,16 @@ function PokemonList({ pokemonData, limit, searchQuery }) {
     }
   };
 
-  // const filteredPokemon = pokemonDetails
-  // .filter((pokemon) => 
-  //   pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) 
-  // )
-  // .slice(0, limit);
-
   const fuse = new Fuse(pokemonDetails,
-    //object pass to Fuse | tells fuzzy search library that search based on name key
     {
     keys: ['name'],
     includeMatches: true,
-    includeScore: true, //how well each result matches a query
+    includeScore: true,
   });
 
-  //filteredPokemon array which contain search result
-  //check whether searchQuery var exists or not
   const filteredPokemon = searchQuery
-    ? fuse.search(searchQuery).map((result) => result.item) //extract actual pokemon data items from search result
-    : pokemonDetails.slice(0, limit); //empty search query
-
-  // console.log('Filtered Pokemon:', pokemonDetails);
+    ? fuse.search(searchQuery).map((result) => result.item)
+    : pokemonDetails.slice(0, limit);
 
   if (isLoading) {
     return <div className="Loader text-center">Loading...</div>;
@@ -80,9 +74,35 @@ function PokemonList({ pokemonData, limit, searchQuery }) {
     return <div className="Error">No matching Pokemon found.</div>;
   }
 
+  const handleAddToFavorite = (pokemon) => {
+    console.log('Clicked Add to Favorites:', pokemon);
+    dispatch(addToFavorites(pokemon));
+    // const id = pokemon.id;
+    // dispatch(addToFavorites({key: `pokemonDetails.${id}`, value: pokemonData}));//used to send actionsto redux store, which triggered reducer to update state
+    console.log(addToFavorites(pokemon), 'addtofav');
+  };
+
+  //performs an APi call to fetch random poke data.
+  const handleRandomPokemon = async () => {
+    try{
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${getRandomPokemonId()}`);
+      const data = await response.json();
+      
+      console.log('random pokemon:', data);
+      setPokemonDetails([data]);
+    } catch (error) {
+      console.error('error fetching random pokemon:', error);
+    }
+  };
+
+  //it generates a random pokemon id withing the range of availabe pokemon ID's
+  const getRandomPokemonId = () => {
+    return Math.floor(Math.random() * 898) +1;
+  };
+
   return (
     <div className='grid grid-cols-3 md:grid-cols-3 gap-4 p-6'>
-      {filteredPokemon?.map((pokemon, index) => (//chaining operator, if filteredPokemon is not null/undefined
+      {filteredPokemon?.map((pokemon, index) => (
         <article key={index} className='pokemon-card bg-lime-100 p-4 rounded-xl shadow-md hover:shadow-lg transition-transform hover:scale-90 border border-lime-500'>
           <Link className='block' to={`/pokemon/${pokemon.id}`}>
             <div className='pokemon-name-container bg-gray-200 p-2 rounded-lg'>
@@ -94,6 +114,9 @@ function PokemonList({ pokemonData, limit, searchQuery }) {
                 alt={pokemon.name}/>
             </div>
           </Link>
+          <button onClick={() => handleAddToFavorite(pokemon)}>Add</button>
+          <button onClick={handleRandomPokemon}>Random Pokemon</button>
+          <span role="img" aria-label="heart">❤️</span>
         </article>
       ))}
     </div>
@@ -107,9 +130,6 @@ PokemonList.propTypes = {
       url: PropTypes.string.isRequired,
     })
   ).isRequired,
-  // sprites: PropTypes.shape({
-  //   front_shiny: PropTypes.string.isRequired,
-  // }).isRequired,
   limit: PropTypes.number.isRequired,
   searchQuery: PropTypes.string.isRequired,
 };

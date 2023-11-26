@@ -15,6 +15,7 @@ import '../components/PokemonDetail.css';
 import Navbar from './Navbar';
 
 const PokemonDetail = ({ pokemon }) => {  
+
   const[showMore, setShowMore] = useState(false);
   const [selectedPicture, setSelectedPicture] = useState(null);
 
@@ -55,25 +56,23 @@ const PokemonDetail = ({ pokemon }) => {
               </div>
             ) : null
           )}
-          </section>
-          <section className='main-image-section text-center flex justify-center flex-col'>
-            <div className='max-w-full max-h-full'>
-              <img
-                className='main-image border border-lime-500 w-48 h-48 rounded-lg shadow-1xl hover:shadow-md'
-                src={selectedPicture || pokemon.sprites.front_default}
-                alt={`${pokemon.name}-main`}
-              />
-              <h3 className="name italic uppercase font-bold text-1xl">{pokemon.name}</h3> 
-            </div>
-          </section>
+        </section>
+        <section className='main-image-section text-center flex justify-center flex-col'>
+          <div className='max-w-full max-h-full'>
+            <img
+              className='main-image border border-lime-500 w-48 h-48 rounded-lg shadow-1xl hover:shadow-md'
+              src={selectedPicture || pokemon.sprites.front_default}
+              alt={`${pokemon.name}-main`}
+            />
+            <h3 className="name italic uppercase font-bold text-1xl">{pokemon.name}</h3> 
+          </div>
+        </section>
         <article className='description-box w-3/5 text-base text-black text-left p-6 border border-lime-500 rounded-lg shadow-1xl hover:shadow-md ml-10'>
-          {/*basic info */}      
           {renderList('Types',pokemon.types.map((type) => type.type.name))}
           {renderList('Height', [pokemon.height])}
           {renderList('Base Experience', [pokemon.base_experience])}
           {renderList('Abilities', pokemon.abilities.map((ability)=> ability.ability.name))}
           {renderList('Stats', pokemon.stats.map((statData) => statData.stat.name))} 
-          {/* {renderList('Game Indices', pokemon.game_indices.map((gameIndex) => gameIndex.version.name))}  */}
           <div className="game-indices mt-4">
             <span className='game-indices-title text-base'>Game Indices: </span>
             {pokemon.game_indices.map((gameIndex, index) => ( //current ele in game-indices
